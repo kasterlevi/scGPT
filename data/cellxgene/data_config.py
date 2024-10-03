@@ -1,10 +1,9 @@
 
-
-
 MAJOR_TISSUE_LIST  = ["heart", "blood", "brain", "lung", "kidney", "intestine", "pancreas"]
-VERSION = "2023-05-08"
+# VERSION = "2023-05-08"
+VERSION = "2023-12-15"
 
-CANCER_LIST_PATH = "./cancer_list.txt"
+CANCER_LIST_PATH = "/storage1/fs1/aditigupta/Active/Summer2022_Levi/Fuhai_rotation/scGPT/data/cellxgene/cancer_list.txt"
 with open(CANCER_LIST_PATH) as f:
     CANCER_LIST = [line.rstrip('\n') for line in f]
 

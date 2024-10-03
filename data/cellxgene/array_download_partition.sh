@@ -1,21 +1,26 @@
 #!/bin/bash
-#SBATCH --time=8:00:00
-#SBATCH --cpus-per-task=4
-#SBATCH --array=1-9
-#SBATCH --mem=48G
-#SBATCH --qos=nopreemption
-#SBATCH -p cpu
+#BSUB -W 8:00
+#BSUB -n 4
+#BSUB -J "myarray[1-9]"
+#BSUB -R "rusage[mem=48G]"
+#BSUB -q general
+#BSUB -m compute-ohids
 
+INDEX_PATH="/storage1/fs1/aditigupta/Active/Summer2022_Levi/Fuhai_rotation/scGPT/data/cellxgene/cell_index"
+QUERY_PATH="/storage1/fs1/aditigupta/Active/Summer2022_Levi/Fuhai_rotation/scGPT/data/cellxgene/query_list.txt"
+DATA_PATH="/storage1/fs1/aditigupta/Active/Summer2022_Levi/Fuhai_rotation/scGPT/data/cellxgene/saved_data"
 
-
-INDEX_PATH="path/to/index"
-QUERY_PATH="path/to/query"
-DATA_PATH="path/to/data"
+# get number of queries
+line_count=$(wc -l < $QUERY_PATH)
 
 cd $DATA_PATH
 
-query_name=$(sed -n "${SLURM_ARRAY_TASK_ID}p" $QUERY_PATH)
+# loop through each query and run
+for (( i=1; i<=line_count; i++ ))
+do
+    cd $DATA_PATH
+    query_name=$(sed -n "${i}p" $QUERY_PATH)
+    echo "downloading ${query_name}"
 
-echo "downloading ${query_name}"
-
-./download_partition.sh ${query_name} ${INDEX_PATH} ${DATA_PATH}
+    /storage1/fs1/aditigupta/Active/Summer2022_Levi/Fuhai_rotation/scGPT/data/cellxgene/download_partition.sh ${query_name} ${INDEX_PATH} ${DATA_PATH}
+done

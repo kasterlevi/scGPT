@@ -47,9 +47,10 @@ def convert2file(idx_list: List[str], query_name: str, output_dir: str) -> None:
 
     # set up the dir
     if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
+        os.makedirs(output_dir)  
+        
     file_path = os.path.join(output_dir, f"{query_name}.idx")
-
+    
     # write to the file
     with open(file_path, 'w') as fp:
         for item in idx_list:

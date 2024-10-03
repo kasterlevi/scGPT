@@ -42,10 +42,6 @@ parser.add_argument("--max-partition-size",
 
 args = parser.parse_args()
 
-# print(args)
-
-
-
 
 def define_partition(partition_idx, id_list, partition_size) -> List[str]:
     """

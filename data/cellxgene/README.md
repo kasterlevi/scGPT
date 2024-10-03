@@ -30,10 +30,13 @@
 - Replace them in the following command and run it to generate the cell index file:
 
 ```{bash}
-INDEX_PATH="path/to/index"
-QUERY_PATH="path/to/query"
+INDEX_PATH="/storage1/fs1/aditigupta/Active/Summer2022_Levi/Fuhai_rotation/scGPT/data/cellxgene/cell_index"
+QUERY_PATH="/storage1/fs1/aditigupta/Active/Summer2022_Levi/Fuhai_rotation/scGPT/data/cellxgene/query_list.txt"
 
 ./build_soma_idx.sh $INDEX_PATH $QUERY_PATH
+
+# don't actuall run this below it is for reference if you want to try practicing submitting a job
+bsub -q general -G compute-ohids -R 'rusage[mem=8GB]' -a 'docker(ubuntu)' ./build_soma_idx.sh
 ```
 
 ## Download the Dataset in Chunks
